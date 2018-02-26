@@ -29,7 +29,7 @@ func init() {
 	RootCmd.PersistentFlags().String("url", "", "url of vcloud director api")
 	RootCmd.PersistentFlags().String("user", "", "Port to run Application server on")
 	RootCmd.PersistentFlags().String( "password", "", "password of vcloud director api")
-	RootCmd.PersistentFlags().String("verbose", "", "verbose output")
+	RootCmd.PersistentFlags().Bool("verbose", false, "verbose output")
 	viper.BindPFlag("url", RootCmd.PersistentFlags().Lookup("url"))
 	viper.BindPFlag("user", RootCmd.PersistentFlags().Lookup("user"))
 	viper.BindPFlag("password", RootCmd.PersistentFlags().Lookup("password"))
@@ -52,10 +52,5 @@ func init() {
 	if len(password) == 0 {
 		fmt.Println("password has to be set, either as env var ARTIFACTORY_PASSWORD or as flag password")
 		os.Exit(1)
-	}
-	if viper.GetString("verbose") == "true" {
-		fmt.Printf("ARTIFACTORY_URL: [%s]\n", url)
-		fmt.Printf("ARTIFACTORY_USER: [%s]\n", user)
-		fmt.Printf("ARTIFACTORY_PASSWORD: [%s]\n", "***************")
 	}
 }
