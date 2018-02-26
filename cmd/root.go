@@ -53,8 +53,9 @@ func init() {
 		fmt.Println("password has to be set, either as env var ARTIFACTORY_PASSWORD or as flag password")
 		os.Exit(1)
 	}
-
-	fmt.Printf("ARTIFACTORY_URL: [%s]\n", url)
-	fmt.Printf("ARTIFACTORY_USER: [%s]\n", user)
-	fmt.Printf("ARTIFACTORY_PASSWORD: [%s]\n", "***************")
+	if viper.GetString("verbose") == "true" {
+		fmt.Printf("ARTIFACTORY_URL: [%s]\n", url)
+		fmt.Printf("ARTIFACTORY_USER: [%s]\n", user)
+		fmt.Printf("ARTIFACTORY_PASSWORD: [%s]\n", "***************")
+	}
 }

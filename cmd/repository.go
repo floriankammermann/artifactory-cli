@@ -3,9 +3,10 @@ package cmd
 import (
 	"fmt"
 	"github.com/spf13/cobra"
-	"github.com/floriankammermann/vcloud-cli/vcdapi"
-	"github.com/spf13/viper"
 	"github.com/floriankammermann/artifactory-cli/artapi"
+	"github.com/floriankammermann/artifactory-cli/types"
+	"text/tabwriter"
+	"os"
 )
 
 
@@ -22,7 +23,17 @@ var listCmd = &cobra.Command{
 	Long: "get all allocated ips of an org network",
 	Run: func(cmd *cobra.Command, args []string) {
 		h := artapi.InitHttpClient()
-		h.ExecRequest("/api/repositories", nil)
+		repos := make([]types.Repository,0)
+		h.ExecRequest("/api/repositories/", &repos)
+		// create a new tabwriter
+		w := new(tabwriter.Writer)
+		w.Init(os.Stdout, 0, 0, 2, ' ', tabwriter.Debug)
+		fmt.Fprintln(w, "Key\tType\tUrl\t")
+		for _, repo := range repos {
+			fmt.Fprintf(w, "%s\t%s\t%s\t\n", repo.Key, repo.Type, repo.Url)
+		}
+		fmt.Fprintln(w)
+		w.Flush()
 	},
 }
 

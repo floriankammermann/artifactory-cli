@@ -18,6 +18,9 @@ type HttpClient struct {
 
 func InitHttpClient() *HttpClient {
 	h = new(HttpClient)
+	h.url = viper.GetString("url")
+	h.user = viper.GetString("user")
+	h.password = viper.GetString("password")
 	return h
 }
 

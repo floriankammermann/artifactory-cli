@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/floriankammermann/vcloud-cli/cmd"
+	"github.com/floriankammermann/artifactory-cli/cmd"
 	"os"
 	"fmt"
 )
